@@ -1,0 +1,75 @@
+:root {
+  --bg: #f3efe6;
+  --bg-deep: #e7e0d2;
+  --ink: #14201a;
+  --muted: #5c6b62;
+  --brand: #0f3d2e;
+  --brand-2: #1f6b4f;
+  --accent: #b08d3c;
+  --line: rgba(20, 32, 26, 0.12);
+  --panel: rgba(255, 252, 246, 0.92);
+  --confirmed: #1f7a4d;
+  --confirmed-bg: #d9f0e3;
+  --tentative: #b08900;
+  --tentative-bg: #fff3c4;
+  --danger: #8b2e2e;
+  --shadow: 0 1px 0 rgba(20, 32, 26, 0.04);
+  --serif: "Fraunces", Georgia, serif;
+  --sans: "Manrope", "Segoe UI", sans-serif;
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.45;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  background:
+    radial-gradient(1200px 500px at 10% -10%, rgba(31, 107, 79, 0.12), transparent 60%),
+    radial-gradient(900px 400px at 100% 0%, rgba(176, 141, 60, 0.12), transparent 55%),
+    linear-gradient(180deg, #f7f3ea 0%, var(--bg) 40%, #ebe4d6 100%);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+.brand strong {
+  font-family: var(--serif);
+  font-weight: 550;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.35rem;
+}
+
+p {
+  margin: 0 0 0.75rem;
+}
+
+ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+a {
+  color: var(--brand-2);
+}
