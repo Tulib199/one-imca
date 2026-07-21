@@ -6,9 +6,11 @@ Interactive workspace for the Indianapolis Muslim Community Association (IMCA).
 
 ## Live site (GitHub Pages)
 
-After the first successful deploy workflow:
+**https://tulib199.github.io/one-imca/**
 
-`https://<your-github-username>.github.io/one-imca/`
+Repo: https://github.com/Tulib199/one-imca
+
+On first visit, a popup notes that this is a **first draft**.
 
 ## Features
 
