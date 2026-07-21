@@ -4,13 +4,24 @@ Interactive workspace for the Indianapolis Muslim Community Association (IMCA).
 
 **Status:** First draft — features and workflows may change with feedback.
 
-## Live site (GitHub Pages)
+## Live sites
 
-**https://tulib199.github.io/one-imca/**
+- **GitHub Pages:** https://tulib199.github.io/one-imca/
+- **Railway:** create a project from this repo (see below) — connecting GitHub alone does not auto-deploy
 
 Repo: https://github.com/Tulib199/one-imca
 
 On first visit, a popup notes that this is a **first draft**.
+
+### Deploy on Railway
+
+1. Open [railway.app](https://railway.app) → **New Project**
+2. Choose **Deploy from GitHub repo**
+3. Select **`Tulib199/one-imca`** (not just “GitHub connected”)
+4. Wait for build; then **Settings → Networking → Generate Domain**
+
+Build/start are defined in `railway.toml`.
+
 
 ## Features
 
