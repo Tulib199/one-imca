@@ -54,6 +54,12 @@ export function IntakeHub({
                 <p className="muted small">
                   {s.answers.submitterName} · {priorityLabel(s.answers.imca3Priority)} ·{" "}
                   {perspectiveLabel(s.answers.perspective)}
+                  {"ownerName" in s && (s as { ownerName?: string }).ownerName
+                    ? ` · Owner: ${(s as { ownerName: string }).ownerName}`
+                    : ""}
+                  {"canEdit" in s && (s as { canEdit?: boolean }).canEdit === false
+                    ? " · View only"
+                    : ""}
                 </p>
               </div>
               <span

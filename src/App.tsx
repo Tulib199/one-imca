@@ -5,9 +5,12 @@ import { DraftNoticeModal } from "./components/DraftNoticeModal";
 import { EventManagerView } from "./components/EventManagerView";
 import { GuidedInterview } from "./components/GuidedInterview";
 import { IntakeHub } from "./components/IntakeHub";
+import { LoginView } from "./components/LoginView";
 import { ProposalHub } from "./components/ProposalHub";
 import { ScorecardView } from "./components/ScorecardView";
+import { SharePanel } from "./components/SharePanel";
 import { TocView } from "./components/TocView";
+import { AuthProvider, useAuth } from "./lib/authContext";
 import { generateScorecard, generateToc } from "./lib/generators";
 import { generateProposal } from "./lib/proposalGenerator";
 import {
@@ -19,9 +22,8 @@ import {
   emptyAnswers,
   suggestPerspective,
 } from "./lib/questions";
-import { loadState, saveState } from "./lib/storage";
+import { useUserWork } from "./lib/useUserWork";
 import type {
-  AppState,
   CalendarEvent,
   EventStatus,
   Imca3Priority,
@@ -30,6 +32,8 @@ import type {
   Perspective,
   StrategySubmission,
 } from "./types";
+import type { Visibility } from "./types/auth";
+import { VISIBILITY_LABELS } from "./types/auth";
 import "./App.css";
 
 type Tab =
@@ -41,8 +45,9 @@ type Tab =
   | "events"
   | "calendar";
 
-function App() {
-  const [state, setState] = useState<AppState>(() => loadState());
+function AppShell() {
+  const { user, loading, logout, unitLabel, roleLabel, directory } = useAuth();
+  const work = useUserWork(user);
   const [tab, setTab] = useState<Tab>("about");
   const [interviewing, setInterviewing] = useState(false);
   const [proposing, setProposing] = useState(false);
@@ -61,37 +66,50 @@ function App() {
     setShowDraftNotice(false);
   }
 
-  useEffect(() => {
-    saveState(state);
-  }, [state]);
-
   const selected = useMemo(
-    () => state.submissions.find((s) => s.id === selectedId) ?? state.submissions[0] ?? null,
-    [state.submissions, selectedId],
+    () => work.submissions.find((s) => s.id === selectedId) ?? work.submissions[0] ?? null,
+    [work.submissions, selectedId],
+  );
+
+  const selectedProposal = useMemo(
+    () =>
+      work.proposals.find((p) => p.id === selectedProposalId) ?? work.proposals[0] ?? null,
+    [work.proposals, selectedProposalId],
   );
 
   useEffect(() => {
-    if (!selectedId && state.submissions[0]) {
-      setSelectedId(state.submissions[0].id);
-    }
-  }, [state.submissions, selectedId]);
+    if (!selectedId && work.submissions[0]) setSelectedId(work.submissions[0].id);
+  }, [work.submissions, selectedId]);
 
   useEffect(() => {
-    if (!selectedProposalId && state.proposals[0]) {
-      setSelectedProposalId(state.proposals[0].id);
+    if (!selectedProposalId && work.proposals[0]) {
+      setSelectedProposalId(work.proposals[0].id);
     }
-  }, [state.proposals, selectedProposalId]);
+  }, [work.proposals, selectedProposalId]);
 
-  function persist(next: AppState) {
-    setState(next);
+  if (loading) {
+    return (
+      <div className="auth-shell">
+        <div className="panel">Loading One IMCA…</div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <>
+        {showDraftNotice ? <DraftNoticeModal onDismiss={dismissDraftNotice} /> : null}
+        <LoginView />
+      </>
+    );
   }
 
   function handleIntakeComplete(raw: Record<string, string>) {
     const priority = (raw.imca3Priority as Imca3Priority) || "operations";
     const answers: IntakeAnswers = {
       ...emptyAnswers(),
-      submitterName: raw.submitterName ?? "",
-      submitterRole: raw.submitterRole ?? "",
+      submitterName: raw.submitterName || user!.fullName,
+      submitterRole: raw.submitterRole || roleLabel,
       ideaTitle: raw.ideaTitle ?? "",
       ideaSummary: raw.ideaSummary ?? "",
       problemNeed: raw.problemNeed ?? "",
@@ -106,7 +124,7 @@ function App() {
       successMetric: raw.successMetric ?? "",
       targetValue: raw.targetValue ?? "",
       timeframe: raw.timeframe ?? "",
-      owner: raw.owner ?? "",
+      owner: raw.owner ?? user!.fullName,
       partners: raw.partners ?? "",
       resourcesNeeded: raw.resourcesNeeded ?? "",
       assumptions: raw.assumptions ?? "",
@@ -121,10 +139,7 @@ function App() {
       toc: generateToc(answers),
     };
 
-    persist({
-      ...state,
-      submissions: [submission, ...state.submissions],
-    });
+    work.saveSubmission(submission, "private");
     setSelectedId(submission.id);
     setInterviewing(false);
     setTab("scorecard");
@@ -132,57 +147,84 @@ function App() {
 
   function handleProposalComplete(raw: Record<string, string>) {
     const proposal = generateProposal(raw);
-    persist({
-      ...state,
-      proposals: [proposal, ...state.proposals],
-    });
+    work.saveProposal(proposal, "private");
     setSelectedProposalId(proposal.id);
     setProposing(false);
   }
 
   function deleteSubmission(id: string) {
-    const submissions = state.submissions.filter((s) => s.id !== id);
-    persist({ ...state, submissions });
-    if (selectedId === id) setSelectedId(submissions[0]?.id ?? null);
+    const item = work.submissions.find((s) => s.id === id);
+    if (!item?.canEdit) {
+      alert("You can only delete your own work.");
+      return;
+    }
+    work.removeWork(item.workId);
+    if (selectedId === id) setSelectedId(null);
   }
 
   function deleteProposal(id: string) {
-    const proposals = state.proposals.filter((p) => p.id !== id);
-    persist({ ...state, proposals });
-    if (selectedProposalId === id) setSelectedProposalId(proposals[0]?.id ?? null);
-  }
-
-  function addEvent(event: CalendarEvent) {
-    persist({ ...state, events: [event, ...state.events] });
-  }
-
-  function updateEventStatus(id: string, status: EventStatus) {
-    persist({
-      ...state,
-      events: state.events.map((e) => (e.id === id ? { ...e, status } : e)),
-    });
-  }
-
-  function deleteEvent(id: string) {
-    persist({ ...state, events: state.events.filter((e) => e.id !== id) });
+    const item = work.proposals.find((p) => p.id === id);
+    if (!item?.canEdit) {
+      alert("You can only delete your own work.");
+      return;
+    }
+    work.removeWork(item.workId);
+    if (selectedProposalId === id) setSelectedProposalId(null);
   }
 
   function createManagedEvent(event: ManagedEvent) {
-    persist({ ...state, managedEvents: [event, ...state.managedEvents] });
+    work.saveManagedEvent(event, undefined, "private");
   }
 
   function updateManagedEvent(event: ManagedEvent) {
-    persist({
-      ...state,
-      managedEvents: state.managedEvents.map((e) => (e.id === event.id ? event : e)),
-    });
+    const existing = work.managedEvents.find((e) => e.id === event.id);
+    if (!existing?.canEdit) {
+      alert("You can only edit your own events.");
+      return;
+    }
+    work.saveManagedEvent(event, existing.workId, existing.visibility);
   }
 
   function deleteManagedEvent(id: string) {
-    persist({
-      ...state,
-      managedEvents: state.managedEvents.filter((e) => e.id !== id),
-    });
+    const existing = work.managedEvents.find((e) => e.id === id);
+    if (!existing?.canEdit) {
+      alert("You can only delete your own events.");
+      return;
+    }
+    work.removeWork(existing.workId);
+  }
+
+  function addEvent(event: CalendarEvent) {
+    work.saveCalendarEvent(event, undefined, "private");
+  }
+
+  function updateEventStatus(id: string, status: EventStatus) {
+    const existing = work.events.find((e) => e.id === id);
+    if (!existing?.canEdit) {
+      alert("You can only edit your own calendar events.");
+      return;
+    }
+    const { workId, visibility, sharedWithUserIds, ownerId, ownerName, canEdit, ...event } =
+      existing;
+    void sharedWithUserIds;
+    void ownerId;
+    void ownerName;
+    void canEdit;
+    work.saveCalendarEvent({ ...event, status }, workId, visibility);
+  }
+
+  function deleteEvent(id: string) {
+    const existing = work.events.find((e) => e.id === id);
+    if (!existing?.canEdit) {
+      alert("You can only delete your own calendar events.");
+      return;
+    }
+    work.removeWork(existing.workId);
+  }
+
+  function shareSelectedSubmission(visibility: Visibility, sharedWithUserIds: string[]) {
+    if (!selected?.canEdit) return;
+    work.shareWork(selected.workId, visibility, sharedWithUserIds);
   }
 
   return (
@@ -193,36 +235,48 @@ function App() {
           <span className="brand-mark">IMCA</span>
           <div>
             <strong>One IMCA</strong>
-            <p>IMCA 3.0 · About · Scorecard · ToC · Proposals · Events · Calendar</p>
+            <p>IMCA 3.0 · Private drafts · Shared by owner</p>
           </div>
         </div>
-        <nav className="tabs" aria-label="Main">
-          {(
-            [
-              ["about", "About One IMCA"],
-              ["intake", "Objectives"],
-              ["scorecard", "Scorecard"],
-              ["toc", "Theory of Change"],
-              ["proposal", "Project Proposal"],
-              ["events", "Event Manager"],
-              ["calendar", "IMCA Calendar"],
-            ] as const
-          ).map(([id, label]) => (
-            <button
-              key={id}
-              type="button"
-              className={`tab ${tab === id ? "active" : ""}`}
-              onClick={() => {
-                setTab(id);
-                if (id === "intake") setInterviewing(false);
-                if (id === "proposal") setProposing(false);
-              }}
-            >
-              {label}
-            </button>
-          ))}
-        </nav>
+        <div className="account-chip">
+          <div>
+            <strong>{user.fullName}</strong>
+            <p className="muted small">
+              {roleLabel} · {unitLabel}
+            </p>
+          </div>
+          <button type="button" className="btn ghost small" onClick={logout}>
+            Sign out
+          </button>
+        </div>
       </header>
+
+      <nav className="tabs tabs-bar" aria-label="Main">
+        {(
+          [
+            ["about", "About One IMCA"],
+            ["intake", "Objectives"],
+            ["scorecard", "Scorecard"],
+            ["toc", "Theory of Change"],
+            ["proposal", "Project Proposal"],
+            ["events", "Event Manager"],
+            ["calendar", "IMCA Calendar"],
+          ] as const
+        ).map(([id, label]) => (
+          <button
+            key={id}
+            type="button"
+            className={`tab ${tab === id ? "active" : ""}`}
+            onClick={() => {
+              setTab(id);
+              if (id === "intake") setInterviewing(false);
+              if (id === "proposal") setProposing(false);
+            }}
+          >
+            {label}
+          </button>
+        ))}
+      </nav>
 
       <main className="main">
         {tab === "about" ? (
@@ -233,15 +287,19 @@ function App() {
           interviewing ? (
             <GuidedInterview
               title="Capture an objective or idea"
-              subtitle="I will ask for the details required to draft both a Balanced Scorecard and a Theory of Change."
+              subtitle="Saved privately to your account. Share later only if you choose."
               questions={INTAKE_QUESTIONS}
-              initial={emptyAnswers() as unknown as Record<string, string>}
+              initial={{
+                ...(emptyAnswers() as unknown as Record<string, string>),
+                submitterName: user.fullName,
+                submitterRole: roleLabel,
+              }}
               onCancel={() => setInterviewing(false)}
               onComplete={handleIntakeComplete}
             />
           ) : (
             <IntakeHub
-              submissions={state.submissions}
+              submissions={work.submissions}
               selectedId={selected?.id ?? null}
               onSelect={setSelectedId}
               onDelete={deleteSubmission}
@@ -252,7 +310,27 @@ function App() {
 
         {tab === "scorecard" ? (
           selected ? (
-            <ScorecardView submission={selected} />
+            <div className="stack-panels">
+              <div className="ownership-banner">
+                <span>
+                  Owner: <strong>{selected.ownerName}</strong> ·{" "}
+                  {VISIBILITY_LABELS[selected.visibility]}
+                  {!selected.canEdit ? " · View only" : ""}
+                </span>
+              </div>
+              <ScorecardView submission={selected} />
+              {selected.canEdit ? (
+                <div className="panel">
+                  <SharePanel
+                    visibility={selected.visibility}
+                    sharedWithUserIds={selected.sharedWithUserIds}
+                    directory={directory}
+                    ownerId={selected.ownerId}
+                    onChange={shareSelectedSubmission}
+                  />
+                </div>
+              ) : null}
+            </div>
           ) : (
             <div className="panel empty">
               <h3>No scorecard yet</h3>
@@ -266,7 +344,27 @@ function App() {
 
         {tab === "toc" ? (
           selected ? (
-            <TocView submission={selected} />
+            <div className="stack-panels">
+              <div className="ownership-banner">
+                <span>
+                  Owner: <strong>{selected.ownerName}</strong> ·{" "}
+                  {VISIBILITY_LABELS[selected.visibility]}
+                  {!selected.canEdit ? " · View only" : ""}
+                </span>
+              </div>
+              <TocView submission={selected} />
+              {selected.canEdit ? (
+                <div className="panel">
+                  <SharePanel
+                    visibility={selected.visibility}
+                    sharedWithUserIds={selected.sharedWithUserIds}
+                    directory={directory}
+                    ownerId={selected.ownerId}
+                    onChange={shareSelectedSubmission}
+                  />
+                </div>
+              ) : null}
+            </div>
           ) : (
             <div className="panel empty">
               <h3>No Theory of Change yet</h3>
@@ -282,7 +380,7 @@ function App() {
           proposing ? (
             <GuidedInterview
               title="Build an IMCA project proposal"
-              subtitle="Modeled on GR-F-07. Use suggested answers, then edit so the proposal matches your project."
+              subtitle="Saved privately to your account until you share it."
               questions={PROPOSAL_QUESTIONS}
               initial={emptyProposalAnswers()}
               completeLabel="Generate proposal"
@@ -291,8 +389,8 @@ function App() {
             />
           ) : (
             <ProposalHub
-              proposals={state.proposals}
-              selectedId={selectedProposalId}
+              proposals={work.proposals}
+              selectedId={selectedProposal?.id ?? null}
               onSelect={setSelectedProposalId}
               onDelete={deleteProposal}
               onStartNew={() => setProposing(true)}
@@ -302,7 +400,7 @@ function App() {
 
         {tab === "events" ? (
           <EventManagerView
-            events={state.managedEvents}
+            events={work.managedEvents}
             onCreate={createManagedEvent}
             onUpdate={updateManagedEvent}
             onDelete={deleteManagedEvent}
@@ -311,7 +409,7 @@ function App() {
 
         {tab === "calendar" ? (
           <CalendarView
-            events={state.events}
+            events={work.events}
             onAdd={addEvent}
             onUpdateStatus={updateEventStatus}
             onDelete={deleteEvent}
@@ -320,11 +418,17 @@ function App() {
       </main>
 
       <footer className="footer">
-        Indianapolis Muslim Community Association · One IMCA · Local draft data stored in this
-        browser · Ready for GitHub iteration
+        Signed in as {user.email} · Work is private by default · Only owners can delete their
+        drafts
       </footer>
     </div>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <AuthProvider>
+      <AppShell />
+    </AuthProvider>
+  );
+}

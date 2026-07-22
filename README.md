@@ -25,6 +25,8 @@ Build/start are defined in `railway.toml`.
 
 ## Features
 
+- **Accounts + invite codes** — each person registers with their own login; unit codes assign department/unit
+- **Private by default** — only the owner can edit/delete; share or raise visibility when ready
 - **About One IMCA** — what IMCA 3.0 is and why Objectives / ToC / Scorecard matter
 - **Guided Objectives intake** — step-by-step questions for strategy ideas
 - **Balanced Scorecard generator** — goals and KPIs aligned to IMCA 3.0
@@ -33,7 +35,11 @@ Build/start are defined in `railway.toml`.
 - **Event Manager** — create events, assign leads, Pre/Day/Post checklists; archive by month
 - **IMCA Calendar** — confirmed (green) / tentative (yellow) events
 
-Data is stored locally in the browser (`localStorage`) for now.
+### Accounts & privacy
+
+Staff sign in with email/password and a unit invite code. Work starts **private**. Owners can share with specific people or set unit / department / organization visibility. See [docs/AUTH_SETUP.md](docs/AUTH_SETUP.md) for invite codes and Supabase cloud setup.
+
+Today, accounts and saved work live in the browser (`localStorage`) on that device. For true multi-computer sync, connect Supabase using `.env.example` and `supabase/schema.sql`.
 
 ## Run locally
 
