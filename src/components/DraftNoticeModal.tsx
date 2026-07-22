@@ -15,7 +15,7 @@ export function DraftNoticeModal({ onDismiss }: Props) {
         </p>
         <p className="muted">
           Please explore, share comments with your department head or the Executive Director,
-          and treat saved entries as working drafts—not final Board documents.
+          and treat saved entries as working drafts—not final approved documents.
         </p>
         <div className="guide-actions">
           <div className="spacer" />

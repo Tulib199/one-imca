@@ -14,9 +14,8 @@ export function AboutView({ onGoToObjectives }: Props) {
         <p className="about-lead">
           <strong>One IMCA</strong> is our shared name for working as one institution—not as
           separate programs that happen to share a building.{" "}
-          <strong>IMCA 3.0</strong> is the Board-authorized Organizational Transformation
-          Initiative (Resolution No. 1-2026) that gives us the priorities, systems, and
-          tools to get there.
+          <strong>IMCA 3.0</strong> is our Organizational Transformation Initiative that
+          gives us the priorities, systems, and tools to get there.
         </p>
         <p className="muted">
           The bigger goal: build a financially sustainable, professionally managed,
@@ -34,8 +33,8 @@ export function AboutView({ onGoToObjectives }: Props) {
             <h3>Speak one language</h3>
             <p>
               Whether you serve in Operations, Education, Social Services, or Community
-              Engagement, we plan and report the same way—so the Board, Executive Director,
-              and department heads can support your work clearly.
+              Engagement, we plan and report the same way—so the Executive Director and
+              department heads can support your work clearly.
             </p>
           </div>
           <div className="about-card">
@@ -48,8 +47,8 @@ export function AboutView({ onGoToObjectives }: Props) {
           <div className="about-card">
             <h3>Make requests stronger</h3>
             <p>
-              Budget, volunteers, and Board approval are easier to get when your idea has a
-              clear goal, a logic pathway, and measurable targets.
+              Budget, volunteers, and leadership approval are easier to get when your idea
+              has a clear goal, a logic pathway, and measurable targets.
             </p>
           </div>
           <div className="about-card">
@@ -66,8 +65,8 @@ export function AboutView({ onGoToObjectives }: Props) {
         <p className="eyebrow">IMCA 3.0</p>
         <h2>The seven strategic priorities</h2>
         <p className="muted">
-          Board Resolution 1-2026 adopted these pillars as the foundation of our
-          transformation. When you submit an objective, you link it to one of these.
+          These pillars are the foundation of our transformation. When you submit an
+          objective, you link it to one of these.
         </p>
         <ol className="about-priority-list">
           {IMCA3_PRIORITIES.map((p) => (
@@ -125,12 +124,11 @@ export function AboutView({ onGoToObjectives }: Props) {
               <p>
                 <strong>Why we need it:</strong> It answers <em>why this should work</em>. If
                 results are weak, we can see where the chain broke—and improve. It also helps
-                donors and the Board see the thinking behind a request, not only a wish list.
+                donors and leadership see the thinking behind a request, not only a wish list.
               </p>
               <p>
                 <strong>How it works:</strong> After you complete Objectives, open this tab to
-                review the pathway. Refine wording with your department head before Board or
-                ED review.
+                review the pathway. Refine wording with your department head before ED review.
               </p>
             </div>
           </div>
@@ -151,7 +149,7 @@ export function AboutView({ onGoToObjectives }: Props) {
               </p>
               <p>
                 <strong>How it works:</strong> Review the auto-generated goal and KPIs, adjust
-                targets with your lead, and use them in quarterly / Board reporting.
+                targets with your lead, and use them in quarterly reporting.
               </p>
             </div>
           </div>

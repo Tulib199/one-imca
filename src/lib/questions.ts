@@ -19,7 +19,7 @@ export const INTAKE_QUESTIONS: GuideQuestion[] = [
   {
     id: "submitterName",
     prompt: "Assalamu alaikum — who is submitting this idea?",
-    help: "Use your full name so the Board and ED know whom to follow up with.",
+    help: "Use your full name so the ED and leadership know whom to follow up with.",
     type: "text",
     placeholder: "e.g., Fatima Rahman",
     required: true,
@@ -27,7 +27,7 @@ export const INTAKE_QUESTIONS: GuideQuestion[] = [
   {
     id: "submitterRole",
     prompt: "What is your role at IMCA?",
-    help: "Examples: Youth Council, Board member, staff, volunteer lead, school teacher.",
+    help: "Examples: Youth Council, community leader, staff, volunteer lead, school teacher.",
     type: "text",
     placeholder: "e.g., Youth Council member",
     required: true,
@@ -67,7 +67,7 @@ export const INTAKE_QUESTIONS: GuideQuestion[] = [
   {
     id: "imca3Priority",
     prompt: "Which IMCA 3.0 priority does this best support?",
-    help: "Pick the closest Board-adopted pillar (Resolution 1-2026).",
+    help: "Pick the closest IMCA 3.0 pillar.",
     type: "select",
     options: IMCA3_PRIORITIES.map((p) => ({
       value: p.id,
@@ -155,12 +155,12 @@ export const INTAKE_QUESTIONS: GuideQuestion[] = [
     prompt: "Which partners or IMCA entities should be involved?",
     help: "Optional but helpful for ToC inputs and Internal Processes partnerships.",
     type: "textarea",
-    placeholder: "e.g., Board Development Committee; Masjid communications",
+    placeholder: "e.g., Development Committee; Masjid communications",
   },
   {
     id: "resourcesNeeded",
     prompt: "What resources are needed (people, budget, tools, space)?",
-    help: "Feeds ToC inputs and later Board resource planning.",
+    help: "Feeds ToC inputs and later leadership resource planning.",
     type: "textarea",
     placeholder: "CRM access, 5 hrs/week volunteer time, $500 print budget",
   },
@@ -174,7 +174,7 @@ export const INTAKE_QUESTIONS: GuideQuestion[] = [
   {
     id: "risks",
     prompt: "What risks could block success, and any early mitigation ideas?",
-    help: "These populate the ToC risk list and inform Board risk reporting.",
+    help: "These populate the ToC risk list and inform leadership risk reporting.",
     type: "textarea",
     placeholder: "Volunteer burnout — mitigate with shared call calendar",
   },
@@ -309,7 +309,7 @@ export const EVENT_QUESTIONS: GuideQuestion[] = [
   {
     id: "audience",
     prompt: "Who is invited / the primary audience?",
-    help: "Families, youth, women, board, public, etc.",
+    help: "Families, youth, women, leadership, public, etc.",
     type: "text",
     placeholder: "Open to IMCA community & guests",
     required: true,

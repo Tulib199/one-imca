@@ -69,7 +69,7 @@ export function ProposalHub({
             <h2>Project proposals</h2>
             <p className="muted">
               Answer guided questions with suggested wording. The system drafts a full
-              project proposal for Board / ED review.
+              project proposal for ED / leadership review.
             </p>
           </div>
           <button type="button" className="btn primary" onClick={onStartNew}>

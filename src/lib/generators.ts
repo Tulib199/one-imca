@@ -59,7 +59,7 @@ export function generateScorecard(answers: IntakeAnswers): BalancedScorecard {
     title: answers.ideaTitle.trim(),
     definition: `${answers.ideaSummary.trim()} This goal advances IMCA 3.0 Priority: ${priorityLabel(answers.imca3Priority)}. It addresses: ${answers.problemNeed.trim()}`,
     imca3Priority: answers.imca3Priority,
-    weightHint: "Set relative weight within the perspective during Board scorecard calibration.",
+    weightHint: "Set relative weight within the perspective during leadership scorecard calibration.",
   };
 
   const period = periodFromTimeframe(answers.timeframe);
@@ -78,7 +78,7 @@ export function generateScorecard(answers: IntakeAnswers): BalancedScorecard {
         : unit === "$"
           ? "Actual value achieved vs. planned target"
           : "Count of achieved items / planned items (or absolute count vs. target)",
-    target: answers.targetValue.trim() || "To be set with Board / ED",
+    target: answers.targetValue.trim() || "To be set with ED / leadership",
     owner: answers.owner.trim() || answers.submitterName.trim() || "TBD",
     weightHint: "100% of this goal until additional KPIs are added",
   };
@@ -104,7 +104,7 @@ export function generateScorecard(answers: IntakeAnswers): BalancedScorecard {
     `IMCA 3.0 Priority: ${priorityLabel(answers.imca3Priority)}`,
     `Submitted by: ${answers.submitterName} (${answers.submitterRole})`,
     ``,
-    `This scorecard places the idea under the ${perspectiveLabel(answers.perspective)} perspective, with one strategic goal and two starter KPIs. Calibrate weights, baselines, and owners before Board adoption.`,
+    `This scorecard places the idea under the ${perspectiveLabel(answers.perspective)} perspective, with one strategic goal and two starter KPIs. Calibrate weights, baselines, and owners before leadership adoption.`,
   ].join("\n");
 
   return {

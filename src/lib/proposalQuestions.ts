@@ -41,7 +41,7 @@ export const PROPOSAL_QUESTIONS: GuideQuestion[] = [
   {
     id: "preparedBy",
     prompt: "Who is preparing this project proposal?",
-    help: "Name and role — appears on the proposal cover for Board / ED review.",
+    help: "Name and role — appears on the proposal cover for ED / leadership review.",
     type: "text",
     placeholder: "e.g., Amina Hassan — Youth Council Lead",
     required: true,
@@ -50,7 +50,7 @@ export const PROPOSAL_QUESTIONS: GuideQuestion[] = [
       "Program Lead — Masjid Al-Fajr",
       "Youth Council Chair",
       "Development / Fundraising Lead",
-      "Board Subcommittee Chair",
+      "Committee Chair",
     ],
   },
   {
@@ -120,7 +120,7 @@ export const PROPOSAL_QUESTIONS: GuideQuestion[] = [
       "Addresses a documented community gap and supports IMCA’s mission to build a vibrant, sustainable Muslim community in Central Indiana, with youth at the forefront.",
       "Critical to IMCA 3.0 financial sustainability by professionalizing donor stewardship and endowment development for long-term institutional health.",
       "Strengthens educational quality and family trust in MTI / Al-Ilm, which are core Islamic institutions serving current and future generations.",
-      "Improves operational excellence and governance systems so IMCA can scale services safely, transparently, and with Board-ready reporting.",
+      "Improves operational excellence and governance systems so IMCA can scale services safely, transparently, and with leadership-ready reporting.",
       "Responds to rising social needs (food security, wellness, funeral support) while preserving dignity and Shariah-compliant stewardship of charitable funds.",
     ],
   },
@@ -131,9 +131,9 @@ export const PROPOSAL_QUESTIONS: GuideQuestion[] = [
     type: "textarea",
     required: true,
     suggestions: [
-      "This project will design and deliver a structured program for IMCA community members in Indianapolis, combining faith-centered content, practical activities, volunteer engagement, and measurable outcomes aligned to IMCA 3.0 priorities. Implementation will include planning, delivery, monitoring, and Board reporting within the approved period.",
+      "This project will design and deliver a structured program for IMCA community members in Indianapolis, combining faith-centered content, practical activities, volunteer engagement, and measurable outcomes aligned to IMCA 3.0 priorities. Implementation will include planning, delivery, monitoring, and leadership reporting within the approved period.",
       "The project expands IMCA’s capacity to serve beneficiaries through coordinated activities across Masjid Al-Fajr and related entities. It includes stakeholder engagement, trained volunteers/staff, clear milestones, and a monitoring framework using Balanced Scorecard indicators.",
-      "Working under IMCA’s Organizational Transformation Initiative, this project upgrades systems, communications, and service delivery so programs become more effective, sustainable, and easier to evaluate for Board and donor accountability.",
+      "Working under IMCA’s Organizational Transformation Initiative, this project upgrades systems, communications, and service delivery so programs become more effective, sustainable, and easier to evaluate for leadership and donor accountability.",
     ],
   },
   {
@@ -147,7 +147,7 @@ export const PROPOSAL_QUESTIONS: GuideQuestion[] = [
     suggestions: [
       "Strengthen community engagement | % increase in program participation vs. baseline | 25% increase within 12 months\nImprove spiritual learning outcomes | % participants reporting improved Islamic knowledge (survey) | ≥ 80% satisfied / improved\nAdvance IMCA 3.0 priority delivery | % project milestones completed on time | ≥ 90% milestone completion",
       "Grow sustainable funding | $ raised toward project / endowment goal | Meet 100% of annual fundraising target\nImprove donor retention | % major donors retained year-over-year | ≥ 85%\nIncrease partnership leverage | # active strategic partners contributing | ≥ 3 partners",
-      "Improve process quality | % priority processes with documented owners & metrics | 100% of selected processes\nReduce service delays | Average cycle time for key service request | Reduce by 30%\nStrengthen transparency | On-time Board progress reports submitted | 4 quarterly reports / year",
+      "Improve process quality | % priority processes with documented owners & metrics | 100% of selected processes\nReduce service delays | Average cycle time for key service request | Reduce by 30%\nStrengthen transparency | On-time leadership progress reports submitted | 4 quarterly reports / year",
     ],
   },
   {
@@ -158,7 +158,7 @@ export const PROPOSAL_QUESTIONS: GuideQuestion[] = [
     required: true,
     suggestions: [
       "Limited structured youth leadership pathway | Trained mentors and curriculum approved | # mentors onboarded / curriculum sessions ready | 8 mentors; 12 sessions ready before launch\nLow volunteer coordination | Shared calendar and role descriptions exist | % key roles filled with written SOPs | 100% of priority roles documented\nUneven communication across entities | Unified messaging guidelines adopted | Brand/communications checklist completed | Checklist approved by ED",
-      "Donor relationships largely event-based | CRM / stewardship cadence established | % major donors on stewardship plan | 100% of major donors tagged in CRM\nRestricted-fund handling needs clearer SOPs | Finance policy refresher completed | Policy pack Board-approved | Policies approved before campaign launch\nLimited endowment awareness | Donor education materials published | # stewardship education touchpoints | ≥ 4 touchpoints / year",
+      "Donor relationships largely event-based | CRM / stewardship cadence established | % major donors on stewardship plan | 100% of major donors tagged in CRM\nRestricted-fund handling needs clearer SOPs | Finance policy refresher completed | Policy pack leadership-approved | Policies approved before campaign launch\nLimited endowment awareness | Donor education materials published | # stewardship education touchpoints | ≥ 4 touchpoints / year",
       "Service demand exceeds volunteer capacity | Volunteer pipeline and shifts scheduled | Fill rate of critical volunteer shifts | ≥ 90% shift fill rate\nFamilies lack awareness of services | Outreach plan executed | # households reached with service info | Target set from baseline mapping",
     ],
   },
@@ -171,7 +171,7 @@ export const PROPOSAL_QUESTIONS: GuideQuestion[] = [
     suggestions: [
       "N/A — single-cycle project within one fiscal year",
       "2026 | Launch pilot, establish baselines, recruit core team\n2027 | Scale delivery to full target cohort; refine curriculum/process\n2028 | Institutionalize SOPs; expand partnerships\n2029 | Achieve sustainability milestones (funding/volunteers)\n2030 | Evaluate impact; recommend next strategic cycle",
-      "2026 | Complete design, branding, and Board approval\n2027 | Full implementation year + mid-course Lean improvement\n2028 | Optimize cost per beneficiary and document model for replication",
+      "2026 | Complete design, branding, and leadership approval\n2027 | Full implementation year + mid-course Lean improvement\n2028 | Optimize cost per beneficiary and document model for replication",
     ],
   },
   {
@@ -240,7 +240,7 @@ export const PROPOSAL_QUESTIONS: GuideQuestion[] = [
       "Adult congregants seeking structured Islamic learning and community belonging.",
       "Households experiencing food insecurity within IMCA’s service radius.",
       "Current and prospective major donors ($1,000+ annual giving) and endowment prospects.",
-      "IMCA staff, board committees, and volunteer leads responsible for program delivery.",
+      "IMCA staff, leadership committees, and volunteer leads responsible for program delivery.",
       "Women connected to IMCA Women’s Council seeking education, wellness, and service opportunities.",
     ],
   },
@@ -260,7 +260,7 @@ export const PROPOSAL_QUESTIONS: GuideQuestion[] = [
     required: true,
     suggestions: [
       "Local Muslim professional network | Technical / volunteer | In-kind mentoring (est. $5,000 value)\nCommunity grocery partners | In-kind goods | $8,000 equivalent food donations\nCivic / interfaith partner | Co-hosting | $0 cash; venue/ co-promotion in-kind",
-      "IMCA Board Development Committee | Governance oversight | $0 (oversight)\nExternal foundation / grant partner | Grant funding | $25,000\nCorporate sponsor (local) | Sponsorship | $10,000",
+      "IMCA Development Committee | Governance oversight | $0 (oversight)\nExternal foundation / grant partner | Grant funding | $25,000\nCorporate sponsor (local) | Sponsorship | $10,000",
       "MTI / Al-Ilm leadership | Implementing partner | In-kind staff time\nYouth Council | Implementing partner | In-kind volunteer hours",
       "No external cash partners at this stage | Internal IMCA | $0 — partnership development planned in Phase 1",
     ],
@@ -272,7 +272,7 @@ export const PROPOSAL_QUESTIONS: GuideQuestion[] = [
     type: "textarea",
     required: true,
     suggestions: [
-      "IMCA Board of Directors | Approves budget/policy and provides oversight | + | high\nExecutive Director | Accountable for delivery and reporting | + | high\nProgram volunteers | Deliver activities and shape community experience | + | high\nCongregants / families | Receive services; provide feedback and trust | + | high\nNeighboring community / civic partners | Perception and collaboration opportunities | + | mid",
+      "IMCA leadership | Approves budget/policy and provides oversight | + | high\nExecutive Director | Accountable for delivery and reporting | + | high\nProgram volunteers | Deliver activities and shape community experience | + | high\nCongregants / families | Receive services; provide feedback and trust | + | high\nNeighboring community / civic partners | Perception and collaboration opportunities | + | mid",
       "Major donors | Enable funding; expect stewardship transparency | + | high\nFinance / Treasurer | Controls disbursements and compliance | + | high\nYouth participants | Core beneficiaries; influence peer enrollment | + | mid\nSchool administrators (MTI/Al-Ilm) | Coordination and scheduling | + | mid",
       "Regulatory / municipal authorities (as applicable) | Permits, compliance for events/facilities | +/- | mid\nMedia / public narrative | Affects brand reputation | +/- | low",
     ],
@@ -284,7 +284,7 @@ export const PROPOSAL_QUESTIONS: GuideQuestion[] = [
     type: "textarea",
     required: true,
     suggestions: [
-      "A stronger, more sustainable IMCA that better serves Central Indiana Muslims across spiritual, educational, and social needs | Demonstrable improvement on agreed IMCA 3.0 scorecard goals by 2030 | Board scorecards, annual impact report, beneficiary surveys | Community trust and Board sponsorship of IMCA 3.0 remain strong",
+      "A stronger, more sustainable IMCA that better serves Central Indiana Muslims across spiritual, educational, and social needs | Demonstrable improvement on agreed IMCA 3.0 scorecard goals by 2030 | leadership scorecards, annual impact report, beneficiary surveys | Community trust and leadership sponsorship of IMCA 3.0 remain strong",
       "Youth are prepared for faithful leadership and long-term belonging in the IMCA community | ≥ 70% of academy alumni remain engaged in IMCA service/leadership within 18 months | Alumni tracking sheet; Youth Council roster | Families continue to support youth participation",
     ],
   },
@@ -296,7 +296,7 @@ export const PROPOSAL_QUESTIONS: GuideQuestion[] = [
     required: true,
     suggestions: [
       "Participants increase knowledge, skills, or practice related to the project theme | ≥ 80% show improvement on pre/post measure | Pre/post assessment summary | Tools are administered consistently\nBeneficiaries report higher satisfaction / belonging | Satisfaction ≥ 85% | Survey results | Sample is representative\nVolunteer/staff capacity to deliver services improves | 100% priority roles trained | Training attendance + competency checklist | Turnover remains manageable",
-      "Donor retention and stewardship quality improve | Major-donor retention ≥ 85% | CRM retention report | Economic conditions remain supportive\nTransparent reporting increases Board confidence | 100% quarterly reports on time | Board packet archive | Data systems are maintained",
+      "Donor retention and stewardship quality improve | Major-donor retention ≥ 85% | CRM retention report | Economic conditions remain supportive\nTransparent reporting increases leadership confidence | 100% quarterly reports on time | leadership packet archive | Data systems are maintained",
     ],
   },
   {
@@ -317,7 +317,7 @@ export const PROPOSAL_QUESTIONS: GuideQuestion[] = [
     type: "textarea",
     required: true,
     suggestions: [
-      "Form project team and RACI | Team chartered within 30 days | Kickoff notes + RACI sheet | Key roles accept assignments\nConduct needs / baseline assessment | Baseline completed before launch | Baseline brief | Respondents cooperate\nDesign curriculum / process & tools | Package ready 2 weeks pre-launch | Approved materials | Subject experts available\nRecruit and orient participants/volunteers | Recruitment target met | Signup list | Outreach channels work\nDeliver sessions / services on schedule | ≥ 90% sessions held as planned | Calendar + attendance | Facility conflicts minimized\nMonitor KPIs and report to Board | Quarterly reports submitted | Board packets | Data collected monthly\nClose-out evaluation and lessons learned | Final evaluation within 30 days of end | Evaluation memo | Stakeholders provide feedback",
+      "Form project team and RACI | Team chartered within 30 days | Kickoff notes + RACI sheet | Key roles accept assignments\nConduct needs / baseline assessment | Baseline completed before launch | Baseline brief | Respondents cooperate\nDesign curriculum / process & tools | Package ready 2 weeks pre-launch | Approved materials | Subject experts available\nRecruit and orient participants/volunteers | Recruitment target met | Signup list | Outreach channels work\nDeliver sessions / services on schedule | ≥ 90% sessions held as planned | Calendar + attendance | Facility conflicts minimized\nMonitor KPIs and report to leadership | Quarterly reports submitted | leadership packets | Data collected monthly\nClose-out evaluation and lessons learned | Final evaluation within 30 days of end | Evaluation memo | Stakeholders provide feedback",
       "Map assets and stakeholders | Asset map completed | Asset register | Departments share data\nProcure supplies / vendors | Procurement within budget | Purchase records | Vendors quote timely\nRun communications campaign | Campaign live before registration | Analytics screenshot | Platforms remain accessible",
     ],
   },
@@ -355,8 +355,8 @@ export const PROPOSAL_QUESTIONS: GuideQuestion[] = [
     type: "textarea",
     required: true,
     suggestions: [
-      "Phase 1 | 1.1 | Project kickoff & team RACI | Jan\nPhase 1 | 1.2 | Baseline / needs assessment | Jan-Feb\nPhase 1 | 1.3 | Design tools, curriculum, SOPs | Feb-Mar\nPhase 1 | 1.4 | Recruit participants & partners | Mar\nPhase 2 | 2.1 | Launch delivery | Apr\nPhase 2 | 2.2 | Mid-point monitoring review | Jun\nPhase 2 | 2.3 | Course-correct using Lean tools | Jul\nPhase 2 | 2.4 | Complete core delivery cycle | Sep\nPhase 3 | 3.1 | Stakeholder feedback survey | Oct\nPhase 3 | 3.2 | Board impact briefing | Nov\nPhase 3 | 3.3 | Documentation & knowledge capture | Nov-Dec\nPhase 3 | 3.4 | Close-out & next-year proposal | Dec",
-      "Phase 1 | 1.1 | Board approval & budget lock | Month 1\nPhase 1 | 1.2 | Vendor/facility confirmations | Month 1-2\nPhase 2 | 2.1 | Full implementation | Month 3-8\nPhase 3 | 3.1 | Evaluation & sustainability plan | Month 9-10",
+      "Phase 1 | 1.1 | Project kickoff & team RACI | Jan\nPhase 1 | 1.2 | Baseline / needs assessment | Jan-Feb\nPhase 1 | 1.3 | Design tools, curriculum, SOPs | Feb-Mar\nPhase 1 | 1.4 | Recruit participants & partners | Mar\nPhase 2 | 2.1 | Launch delivery | Apr\nPhase 2 | 2.2 | Mid-point monitoring review | Jun\nPhase 2 | 2.3 | Course-correct using Lean tools | Jul\nPhase 2 | 2.4 | Complete core delivery cycle | Sep\nPhase 3 | 3.1 | Stakeholder feedback survey | Oct\nPhase 3 | 3.2 | Leadership impact briefing | Nov\nPhase 3 | 3.3 | Documentation & knowledge capture | Nov-Dec\nPhase 3 | 3.4 | Close-out & next-year proposal | Dec",
+      "Phase 1 | 1.1 | leadership approval & budget lock | Month 1\nPhase 1 | 1.2 | Vendor/facility confirmations | Month 1-2\nPhase 2 | 2.1 | Full implementation | Month 3-8\nPhase 3 | 3.1 | Evaluation & sustainability plan | Month 9-10",
     ],
   },
   {
@@ -407,7 +407,7 @@ export const PROPOSAL_QUESTIONS: GuideQuestion[] = [
       "Suggested installments: 40% at start (planning/setup), 40% at midpoint delivery, 20% at close-out/evaluation.",
       "Monthly spend roughly level across active delivery months; heavier in launch month for materials and marketing.",
       "Major costs front-loaded in first quarter for procurement; recurring facilitator costs monthly thereafter.",
-      "N/A — single disbursement upon Board approval.",
+      "N/A — single disbursement upon leadership approval.",
     ],
   },
 ];

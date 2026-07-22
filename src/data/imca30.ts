@@ -89,7 +89,7 @@ export const EVENT_TYPES = [
   "Women",
   "Social Services",
   "Fundraising",
-  "Board / Governance",
+  "Governance / Leadership",
   "Community Outreach",
   "Interfaith / Civic",
   "Training / Professional Development",
